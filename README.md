@@ -32,7 +32,7 @@
 - Display images in the terminal
 - Play GIFs in the terminal
 - Images and GIFs are scaled accordingly to your terminal
-- Accepts URLs as image arguments using the ``--url`` flag
+- Accepts URLs as the image argument using the ``--url`` flag
 
 
 ## Getting Started
