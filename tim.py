@@ -28,8 +28,8 @@ def clean_up_files():
 
     if is_gif:
         os.remove(initial_filename) ## clean up the new, resized image
-    #else:
-    os.remove(filename)
+    else:
+        os.remove(filename)
 
 def save_gif_frames(gif):
     if not os.path.exists("SPLIT_GIF"):
@@ -74,9 +74,10 @@ def create_pixel_dict(img, pixels):
                     r, g, b, a = pixel_values ## png
             except TypeError:
                 #error("Image type is not supported or the image is broken")
-                qui = fg(pixel_values) + '█' + fg.rs
-                image[str(x)].append(qui)
-                continue
+                # qui = fg(pixel_values) + '█' + fg.rs
+                # image[str(x)].append(qui)
+                # continue
+                return False
 
             qui = fg(r, g, b) + '█' + fg.rs
             image[str(x)].append(qui)
@@ -144,8 +145,12 @@ elif is_gif:
         filename = scale_image(f"SPLIT_GIF/{filename}")
         img = Image.open(filename)
         pixels = img.load()
-
-        pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
+        
+        try:
+            pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
+        except TypeError:
+            continue
+        
         display_pixel_dict(pixel_dict, xdim)
         time.sleep(0.1)
 
