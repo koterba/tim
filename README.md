@@ -35,6 +35,7 @@
 - Play GIFs in the terminal
 - Images and GIFs are scaled accordingly to your terminal
 - Accepts URLs as the image argument using the ``--url`` flag
+- Repeats/loops gifs using the ``--repeats`` flag
 
 
 ## Getting Started
