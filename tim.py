@@ -29,9 +29,9 @@ def clean_up_files():
     if is_gif:
         os.remove(initial_filename) ## clean up the new, resized image
     else:
-        os.remove(filename)
+        o
+        s.remove(filename)
 
-        
 def save_gif_frames(gif):
     if not os.path.exists("SPLIT_GIF"):
         os.mkdir("SPLIT_GIF")
@@ -50,8 +50,14 @@ def scale_image(filename):
     hpercent = (baseheight/float(img.size[1]))
     wsize = int((float(img.size[0])*float(hpercent)) * 2)
 
-    ## applying new size to image
-    img = img.resize((wsize,baseheight))
+    ## DEFAULT: Scales to height. IF WIDTH TOO LARGE, scale to width instead
+    if wsize > basewidth:
+        wpercent = (basewidth/float(img.size[0]))
+        hsize = int((float(img.size[1])*float(wpercent)))
+        img = img.resize((basewidth, hsize))
+    else:
+        ## applying new size to image
+        img = img.resize((wsize,baseheight))
 
     ## creating a new file name: img/test.png => img/test_new.png
     filename = "_new.".join(filename.split("."))
@@ -100,6 +106,12 @@ def display_pixel_dict(image, xdim):
 filename = None
 is_gif = False
 
+## all used for displaying images relative to terminal size
+term_columns = os.get_terminal_size().columns
+term_lines = os.get_terminal_size().lines
+baseheight = term_lines - 1
+basewidth = term_columns - 1
+
 
 ## argument parsing
 filename = sys.argv[-1]
@@ -116,11 +128,6 @@ initial_filename = filename
 if filename[-3:] == "gif":
     is_gif = True
 
-## all used for displaying images relative to terminal size
-term_columns = os.get_terminal_size().columns
-term_lines = os.get_terminal_size().lines
-baseheight = term_lines - 1
-
 ## make sure not to scale the gif file, will break otherwise
 if not is_gif:
     filename = scale_image(filename)
@@ -134,6 +141,7 @@ if not is_gif:
     pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
     display_pixel_dict(pixel_dict, xdim)
 
+    
 elif is_gif:
     ## creates a directory with each frame of the gif
     save_gif_frames(filename)
