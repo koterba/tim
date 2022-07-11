@@ -24,6 +24,14 @@
 
 ---
 
+## Features
+
+- Display images in the terminal
+- Play GIFs in the terminal
+- Images and GIFs are scaled accordingly to your terminal
+- Accepts URLs as image arguments using the ``--url`` flag
+
+
 ## Getting Started
 
 - Clone the repo: ``git clone https://github.com/alannxq/tim.git``
