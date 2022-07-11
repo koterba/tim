@@ -24,7 +24,7 @@
 
 
 <p align="center">
-  <img width="70%" src="https://cdn.discordapp.com/attachments/947092663914623016/996129457620385992/tim_showcase.gif">
+  <img width="100%" src="https://cdn.discordapp.com/attachments/947092663914623016/996129457620385992/tim_showcase.gif">
 </p>
 
 
