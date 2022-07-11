@@ -90,12 +90,10 @@ def scale_image(filename):
 
 
 def create_pixel_dict(img, pixels):
-    image = {}
     xdim, ydim = img.size
+    image = [[] for _ in range(xdim)]
     for y in range(xdim):
         for x in range(ydim):
-            if str(x) not in image:
-                image[str(x)] = []
             pixel_values = pixels[y, x]
             try: ##gets values for the current iterated pixel of the image
                 if len(pixel_values) == 3:
@@ -106,18 +104,20 @@ def create_pixel_dict(img, pixels):
                 return False ## if frame is in 8-bit colour, it gets skipped
 
             qui = fg(r, g, b) + '█' + fg.rs
-            image[str(x)].append(qui)
+            image[y].append(qui)
             
     return image, xdim, ydim
 
 
 def display_pixel_dict(image, xdim):
     os.system("cls")
-    for x, row in image.items():
-        spacing_to_center = ((term_columns // 2) - (xdim // 2))
-        print(" "*spacing_to_center, end="")
-        for char in row:
-            print(char, end="")
+    #print(image)
+    spacing_to_center = ((term_columns // 2) - (xdim // 2))
+    gap = " "*spacing_to_center
+    for index in range(len(image[0])):
+        print(gap, end="")
+        for pixels in image:
+            print(pixels[index], end="")
         print()
 
 
