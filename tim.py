@@ -96,7 +96,7 @@ def scale_image(filename):
     return filename
 
 
-def create_pixel_dict(img, pixels):
+def create_image_array(img, pixels):
     xdim, ydim = img.size
     image = [[] for _ in range(xdim)]
     for y in range(xdim):
@@ -116,7 +116,7 @@ def create_pixel_dict(img, pixels):
     return image, xdim, ydim
 
 
-def display_pixel_dict(image, xdim):
+def display_image_array(image, xdim):
     os.system("cls")
     #print(image)
     spacing_to_center = ((term_columns // 2) - (xdim // 2))
@@ -180,13 +180,13 @@ if not is_gif:
 clock = Clock(fps)
 
 
-##IMAGE STORES A DICT OF ARRAYS WITH COLOURED CHARACTERS TO REPRESENT PIXELS
+##IMAGE STORES AN ARRAY OF ARRAYS WITH COLOURED CHARACTERS TO REPRESENT PIXELS
 if not is_gif:
     img = Image.open(filename)
     pixels = img.load()
 
-    pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
-    display_pixel_dict(pixel_dict, xdim)
+    pixel_array, xdim, ydim = create_image_array(img, pixels)
+    display_image_array(pixel_array, xdim)
 
 elif is_gif:
     ## creates a directory with each frame of the gif
@@ -206,11 +206,11 @@ elif is_gif:
             pixels = img.load()
             
             try:
-                pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
+                pixel_dict, xdim, ydim = create_image_array(img, pixels)
             except TypeError:
                 continue
             
-            display_pixel_dict(pixel_dict, xdim)
+            display_image_array(pixel_dict, xdim)
             clock.sleep()
 
 clean_up_files()
