@@ -79,10 +79,6 @@ def create_pixel_dict(img, pixels):
                 else:
                     r, g, b, a = pixel_values ## png
             except TypeError:
-                #error("Image type is not supported or the image is broken")
-                # qui = fg(pixel_values) + '█' + fg.rs
-                # image[str(x)].append(qui)
-                # continue
                 return False
 
             qui = fg(r, g, b) + '█' + fg.rs
