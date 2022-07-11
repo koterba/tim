@@ -31,6 +31,7 @@ def clean_up_files():
     else:
         os.remove(filename)
 
+        
 def save_gif_frames(gif):
     if not os.path.exists("SPLIT_GIF"):
         os.mkdir("SPLIT_GIF")
