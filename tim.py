@@ -29,8 +29,7 @@ def clean_up_files():
     if is_gif:
         os.remove(initial_filename) ## clean up the new, resized image
     else:
-        o
-        s.remove(filename)
+        os.remove(filename)
 
 def save_gif_frames(gif):
     if not os.path.exists("SPLIT_GIF"):
@@ -141,15 +140,17 @@ if not is_gif:
     pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
     display_pixel_dict(pixel_dict, xdim)
 
-    
 elif is_gif:
     ## creates a directory with each frame of the gif
     save_gif_frames(filename)
+
+    ## sort all the files in frame order:
+    filenames = [name.split("_", 1) for name in os.listdir("SPLIT_GIF")] ## splits frame number
+    filenames.sort(key=lambda x : int(x[0])) ## sorts by frame number
+    filenames = ["_".join(name) for name in filenames] ## joins frame number back 
+
     ## go through all the frames in the GIF directory
-    for index, filename in enumerate(os.listdir("SPLIT_GIF")):
-        ## skip the first frame
-        if index == 1:
-            continue
+    for filename in filenames:
         ## scales it properly to the terminal and loads the file
         filename = scale_image(f"SPLIT_GIF/{filename}")
         img = Image.open(filename)
