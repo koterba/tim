@@ -101,9 +101,9 @@ def create_pixel_dict(img, pixels):
                 if len(pixel_values) == 3:
                     r, g, b = pixel_values ## jpg (usually)
                 else:
-                    r, g, b, a = pixel_values ## png
+                    r, g, b, _ = pixel_values ## png
             except TypeError:
-                return False
+                return False ## if frame is in 8-bit colour, it gets skipped
 
             qui = fg(r, g, b) + '█' + fg.rs
             image[str(x)].append(qui)
