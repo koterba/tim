@@ -1,8 +1,9 @@
 from PIL import Image, ImageSequence
+from time import perf_counter, sleep
 import urllib.request
 from sty import fg
+import requests
 import shutil
-from time import perf_counter, sleep
 import sys
 import os
 
@@ -21,8 +22,6 @@ class Clock:
         while self.tick < r:
             sleep(1/1000)
 
-# 15 frames per second
-clock = Clock(15)
 
 ## If gif is ended too early, it will not remove the files properly
 if os.path.exists("internet_image.png"):
@@ -61,6 +60,14 @@ def save_gif_frames(gif):
     gif = Image.open(gif)
     for frame_count, frame in enumerate(ImageSequence.Iterator(gif)):
         frame.save(f"SPLIT_GIF/{frame_count}_TIM_SPLIT_GIF.png",format = "png", lossless = True)
+
+
+def search_gif(search_query, api_key):
+    r = requests.get(f"https://api.giphy.com/v1/gifs/search?q={search_query}&api_key={api_key}&limit=1")
+    j = r.json()
+    url = j["data"][0]["images"]["original"]["url"][:-5]
+
+    return url
 
 
 def scale_image(filename):
@@ -124,6 +131,9 @@ def display_pixel_dict(image, xdim):
 ## ...globals
 filename = None
 is_gif = False
+repeats = 1
+fps = 15
+GIPHY_API = os.getenv('GIPHY_API')
 
 ## all used for displaying images relative to terminal size
 term_columns = os.get_terminal_size().columns
@@ -133,13 +143,28 @@ basewidth = term_columns - 1
 
 
 ## argument parsing
-filename = sys.argv[-1]
+filename = sys.argv[-1] ## this gets overridden if no other flags are used
+
+if "--search" in sys.argv:
+    search_arg_index = sys.argv.index("--search")
+    search_query = sys.argv[search_arg_index + 1:]
+    search_query = "+".join(search_query)
+    url = search_gif(search_query, GIPHY_API)
+    filename = get_url_image(url)
+
+if "--repeats" in sys.argv:
+    repeats_arg_index = sys.argv.index("--repeats")
+    repeats = int(sys.argv[repeats_arg_index + 1])
 
 if "--url" in sys.argv:
     url = sys.argv[-1]
+    if url == "--url": ## if the last argument is the flag, raise error
+        error("No url supplied")
     filename = get_url_image(url)
-else:
-    filename = sys.argv[-1]
+
+if "--fps" in sys.argv:
+    fps_arg_index = sys.argv.index("--fps")
+    fps = int(sys.argv[fps_arg_index + 1])
 
 ## initial file is stored as 'filename' changes when gifs are used
 initial_filename = filename
@@ -150,6 +175,9 @@ if filename[-3:] == "gif":
 ## make sure not to scale the gif file, will break otherwise
 if not is_gif:
     filename = scale_image(filename)
+
+
+clock = Clock(fps)
 
 
 ##IMAGE STORES A DICT OF ARRAYS WITH COLOURED CHARACTERS TO REPRESENT PIXELS
@@ -170,18 +198,19 @@ elif is_gif:
     filenames = ["_".join(name) for name in filenames] ## joins frame number back 
 
     ## go through all the frames in the GIF directory
-    for filename in filenames:
-        ## scales it properly to the terminal and loads the file
-        filename = scale_image(f"SPLIT_GIF/{filename}")
-        img = Image.open(filename)
-        pixels = img.load()
-        
-        try:
-            pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
-        except TypeError:
-            continue
-        
-        display_pixel_dict(pixel_dict, xdim)
-        clock.sleep()
+    for _ in range(repeats):
+        for filename in filenames:
+            ## scales it properly to the terminal and loads the file
+            filename = scale_image(f"SPLIT_GIF/{filename}")
+            img = Image.open(filename)
+            pixels = img.load()
+            
+            try:
+                pixel_dict, xdim, ydim = create_pixel_dict(img, pixels)
+            except TypeError:
+                continue
+            
+            display_pixel_dict(pixel_dict, xdim)
+            clock.sleep()
 
 clean_up_files()
