@@ -2,10 +2,34 @@ from PIL import Image, ImageSequence
 import urllib.request
 from sty import fg
 import shutil
-import time
+from time import perf_counter, sleep
 import sys
 import os
 
+
+class Clock:
+    def __init__(self, fps):
+        self.start = perf_counter()
+        self.frame_length = 1/fps
+
+    @property
+    def tick(self):
+        return int((perf_counter() - self.start)/self.frame_length)
+
+    def sleep(self):
+        r = self.tick + 1
+        while self.tick < r:
+            sleep(1/1000)
+
+# 15 frames per second
+clock = Clock(15)
+
+## If gif is ended too early, it will not remove the files properly
+if os.path.exists("internet_image.png"):
+    os.remove("internet_image.png")
+
+if os.path.exists("SPLIT_GIF"):
+    shutil.rmtree("SPLIT_GIF")
 
 def error(prompt):
     print(fg(255, 50, 50) + 'ERROR:' + fg.rs, prompt)
@@ -158,6 +182,6 @@ elif is_gif:
             continue
         
         display_pixel_dict(pixel_dict, xdim)
-        time.sleep(0.1)
+        clock.sleep()
 
 clean_up_files()
