@@ -5,7 +5,7 @@
 ---
 
 <p align="center">
-  <h3 align="center">The Terminal Image Viewer</h3>
+  <h3 align="center">A Terminal Image Viewer</h3>
 </p>
 
 ---
