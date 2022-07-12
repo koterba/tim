@@ -117,7 +117,7 @@ def create_image_array(img, pixels):
 
 
 def display_image_array(image, xdim):
-    os.system("cls")
+    os.system(clear_command)
     #print(image)
     spacing_to_center = ((term_columns // 2) - (xdim // 2))
     gap = " "*spacing_to_center
@@ -129,17 +129,19 @@ def display_image_array(image, xdim):
 
 
 ## ...globals
+clear_command = "cls" if os.name == "nt" else "clear"
+GIPHY_API = os.getenv('GIPHY_API')
 filename = None
 is_gif = False
 repeats = 1
 fps = 15
-GIPHY_API = os.getenv('GIPHY_API')
+
 
 ## all used for displaying images relative to terminal size
 term_columns = os.get_terminal_size().columns
 term_lines = os.get_terminal_size().lines
-baseheight = term_lines - 1
 basewidth = term_columns - 1
+baseheight = term_lines - 1
 
 
 ## argument parsing
