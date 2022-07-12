@@ -36,6 +36,10 @@ def error(prompt):
     sys.exit(1)
 
 
+def info(prompt):
+    print(fg(50, 255, 50) + 'INFO:' + fg.rs, prompt)
+
+
 def get_url_image(image_url):
     urllib.request.urlretrieve(image_url, f'internet_image.{image_url[-3:]}')
     
@@ -53,6 +57,7 @@ def clean_up_files():
         os.remove(initial_filename) ## clean up the new, resized image
     else:
         os.remove(filename)
+
 
 def save_gif_frames(gif):
     if not os.path.exists("SPLIT_GIF"):
@@ -151,6 +156,7 @@ if "--search" in sys.argv:
     search_arg_index = sys.argv.index("--search")
     search_query = sys.argv[search_arg_index + 1:]
     search_query = "+".join(search_query)
+    info("Query is being search for")
     url = search_gif(search_query, GIPHY_API)
     filename = get_url_image(url)
 
@@ -162,6 +168,7 @@ if "--url" in sys.argv:
     url = sys.argv[-1]
     if url == "--url": ## if the last argument is the flag, raise error
         error("No url supplied")
+    info("File is being downloaded")
     filename = get_url_image(url)
 
 if "--fps" in sys.argv:
