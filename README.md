@@ -28,7 +28,7 @@
 </p>
 
 
-
+ 
 ## Features
 
 - Display images in the terminal
