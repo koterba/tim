@@ -30,6 +30,7 @@ if os.path.exists("internet_image.png"):
 if os.path.exists("SPLIT_GIF"):
     shutil.rmtree("SPLIT_GIF")
 
+
 def error(prompt):
     print(fg(255, 50, 50) + 'ERROR:' + fg.rs, prompt)
     #clean_up_files()
