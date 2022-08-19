@@ -7,7 +7,7 @@
 <p align="center">
   <h3 align="center">A Terminal Image Viewer</h3>
 </p>
- 
+
 ---
 
 <p align="center">
