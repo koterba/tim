@@ -8,7 +8,7 @@
   <h3 align="center">A Terminal Image Viewer</h3>
 </p>
 
----
+--- 
 
 <p align="center">
   <p align="center">A command line application for viewing and searching for images and gifs.</p>
