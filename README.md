@@ -9,7 +9,7 @@
 </p>
 
 ---
-
+ 
 <p align="center">
   <p align="center">A command line application for viewing and searching for images and gifs.</p>
 </p>
