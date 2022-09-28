@@ -13,7 +13,7 @@
 <p align="center">
   <p align="center">A command line application for viewing and searching for images and gifs.</p>
 </p>
-
+ 
 <p align="center">
 <a href="https://github.com/alannxq/tim/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/alannxq/tim"></a>
 <a href="https://github.com/alannxq/tim/blob/main/LICENSE"><img src="https://img.shields.io/github/license/alannxq/tim?color=red&style=flat"/></a>
