@@ -20,7 +20,7 @@
 <a><img src="https://img.shields.io/github/last-commit/alannxq/tim/main?color=blue&style=flat"/></a>
 </p>
 
----
+--- 
 
 
 <p align="center">
