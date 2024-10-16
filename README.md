@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="60%" src="https://cdn.discordapp.com/attachments/947092663914623016/996018456849825883/tim.png" />
+  <img width="60%" src="https://files.alan0.com/timLogo.png" />
 </p>
  
 ---
@@ -24,7 +24,7 @@
  
 
 <p align="center">
-  <img width="80%" src="https://cdn.discordapp.com/attachments/947092663914623016/996129457620385992/tim_showcase.gif">
+  <img width="80%" src="https://files.alan0.com/timMiku.gif">
 </p>
 
  
@@ -60,7 +60,7 @@
 <br>
 
 <p align="center">
-  <img width="60%" src="https://cdn.discordapp.com/attachments/947092663914623016/996025271960485898/unknown.png" />
-  <img width="60%" src="https://cdn.discordapp.com/attachments/947092663914623016/996025046365642803/unknown.png" />
-  <img width="60%" src="https://cdn.discordapp.com/attachments/947092663914623016/996025137562398730/unknown.png" />
+  <img width="60%" src="https://files.alan0.com/timGradient.png" />
+  <img width="60%" src="https://files.alan0.com/timBunny.png" />
+  <img width="60%" src="https://files.alan0.com/timMinionCat.png" />
 </p>
